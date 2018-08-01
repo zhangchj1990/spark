@@ -18,6 +18,5 @@ object WordCount {
     wordCounts.foreach(println(_))
 
     sc.stop()
-    //val wordCounts = textFile.flatMap(line => line.split(" ")).map(word => (word, 1)).reduceByKey((a, b) => a + b)
   }
 }
