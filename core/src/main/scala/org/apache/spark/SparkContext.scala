@@ -497,7 +497,7 @@ class SparkContext(config: SparkConf) extends Logging {
     _heartbeatReceiver = env.rpcEnv.setupEndpoint(
       HeartbeatReceiver.ENDPOINT_NAME, new HeartbeatReceiver(this))
 
-    // Create and start the scheduler
+    // Create and start the scheduler 创建 schedulerBackend和taskScheduler
     val (sched, ts) = SparkContext.createTaskScheduler(this, master, deployMode)
     _schedulerBackend = sched
     _taskScheduler = ts
@@ -1787,6 +1787,8 @@ class SparkContext(config: SparkConf) extends Logging {
     }
     // Use the stopping variable to ensure no contention for the stop scenario.
     // Still track the stopped variable for use elsewhere in the code.
+    //如果为stopped！=expect（false），则返回false,说明stoped=true，程序已经停止，进入if
+    //如果stopped=fasle，则设置stopped为update的值（true）,成功则返回true，不进入if
     if (!stopped.compareAndSet(false, true)) {
       logInfo("SparkContext already stopped.")
       return

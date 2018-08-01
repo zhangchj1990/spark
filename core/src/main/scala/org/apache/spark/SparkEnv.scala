@@ -233,7 +233,7 @@ object SparkEnv extends Logging {
       assert(listenerBus != null, "Attempted to create driver SparkEnv with null listener bus!")
     }
 
-    val securityManager = new SecurityManager(conf, ioEncryptionKey)
+    val securityManager = new SecurityManager(conf, ioEncryptionKey)//TODO 暂未展开阅读
     ioEncryptionKey.foreach { _ =>
       if (!securityManager.isSaslEncryptionEnabled()) {
         logWarning("I/O encryption enabled without RPC encryption: keys will be visible on the " +
